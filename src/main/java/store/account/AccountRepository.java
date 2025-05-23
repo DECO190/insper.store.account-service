@@ -13,4 +13,5 @@ public interface AccountRepository extends CrudRepository<AccountModel, String> 
 
     public AccountModel findByEmailAndSha256(String email, String sha256);
     
+    public AccountModel findByEmail(String email);
 }

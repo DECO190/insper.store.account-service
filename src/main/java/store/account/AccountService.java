@@ -28,6 +28,16 @@ public class AccountService {
         if (pass.length() < 8) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password too short!");
         }
+
+        AccountModel existing = accountRepository.findByEmail(account.email());
+        if (existing != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already in use!");
+        }
+        
+        if (account.name() == null || account.name().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name is required!");
+        }
+
         account.sha256(calcHash(pass));
         account.creation(new Date());
         return accountRepository.save(new AccountModel(account)).to();
