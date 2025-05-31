@@ -2,6 +2,10 @@ server:
   port: 8080
 
 spring:
+  server:
+    error:
+      include-message: always
+      
   application:
     name: account
 
